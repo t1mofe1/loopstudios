@@ -1,25 +1,39 @@
-import { Link, LinkContainer, LinksList } from './HeaderNavLinks.styles';
+import { Link, LinkContainer, LinksList, StyledNav } from './HeaderNavLinks.styles';
 
-export function HeaderNavLinks() {
+type HeaderNavLinksProps = {
+	mobile?: boolean;
+	isOpen?: boolean;
+};
+export function HeaderNavLinks({ mobile = false, isOpen = false }: HeaderNavLinksProps) {
 	return (
-		<nav>
-			<LinksList>
-				<LinkContainer>
-					<Link href="/about">About</Link>
+		<StyledNav {...{ mobile, isOpen }}>
+			<LinksList {...{ mobile, isOpen }}>
+				<LinkContainer {...{ mobile, isOpen }}>
+					<Link {...{ mobile, isOpen }} href="/about">
+						About
+					</Link>
 				</LinkContainer>
-				<LinkContainer>
-					<Link href="/careers">Careers</Link>
+				<LinkContainer {...{ mobile, isOpen }}>
+					<Link {...{ mobile, isOpen }} href="/careers">
+						Careers
+					</Link>
 				</LinkContainer>
-				<LinkContainer>
-					<Link href="/events">Events</Link>
+				<LinkContainer {...{ mobile, isOpen }}>
+					<Link {...{ mobile, isOpen }} href="/events">
+						Events
+					</Link>
 				</LinkContainer>
-				<LinkContainer>
-					<Link href="/products">Products</Link>
+				<LinkContainer {...{ mobile, isOpen }}>
+					<Link {...{ mobile, isOpen }} href="/products">
+						Products
+					</Link>
 				</LinkContainer>
-				<LinkContainer>
-					<Link href="/support">Support</Link>
+				<LinkContainer {...{ mobile, isOpen }}>
+					<Link {...{ mobile, isOpen }} href="/support">
+						Support
+					</Link>
 				</LinkContainer>
 			</LinksList>
-		</nav>
+		</StyledNav>
 	);
 }
