@@ -1,6 +1,4 @@
-import styled, { createGlobalStyle } from 'styled-components';
-import { MaxWidthProp } from './context/MaxWidth';
-import { Colors } from './utils/Colors';
+import { createGlobalStyle, css } from 'styled-components';
 import { Fonts, getFont } from './utils/Fonts';
 
 export const GlobalStyles = createGlobalStyle`
@@ -12,16 +10,15 @@ export const GlobalStyles = createGlobalStyle`
 
   body {
     -webkit-font-smoothing: antialiased;
-    
     ${getFont(Fonts.JosefinSans)};
-    font-size: 16px;
 
-    background-color: ${Colors.Black};
+    background-color: ${({ theme }) => theme.black};
+    color: ${({ theme }) => theme.white};
   }
 `;
 
-export const Container = styled.div<MaxWidthProp>`
-	max-width: ${({ maxWidth }) => maxWidth};
+export const MaxWidthMixin = css`
+	max-width: 1200px;
 	width: 90%;
 	margin: 0 auto;
 `;

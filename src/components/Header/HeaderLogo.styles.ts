@@ -9,3 +9,9 @@ export const HeaderLogoContainer = styled.div`
 
 	z-index: 1;
 `;
+
+export const StyledSVG = styled.svg`
+	path {
+		fill: ${({ theme }) => theme.white};
+	}
+`;

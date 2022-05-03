@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
-import { HeaderBurger } from './HeaderBurger';
-import { HeaderNavLinks } from './HeaderNavLinks';
+import HeaderBurger from './HeaderBurger';
+import HeaderNavLinks from './HeaderNavLinks';
 
-export function HeaderMenu() {
+export default function HeaderMenu() {
 	const [open, setOpen] = useState(false);
 
 	const mobile = useMediaQuery('(max-width: 768px)');
@@ -14,8 +14,8 @@ export function HeaderMenu() {
 
 	return (
 		<>
-			{mobile && <HeaderBurger isOpen={open} menuClicked={onMenuClick} />}
-			<HeaderNavLinks mobile={mobile} isOpen={open} />
+			{mobile && <HeaderBurger type={'SliderBurgerLines'} open={open} menuClicked={onMenuClick} />}
+			<HeaderNavLinks mobile={mobile} open={open} />
 		</>
 	);
 }

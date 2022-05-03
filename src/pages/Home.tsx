@@ -1,11 +1,9 @@
-import { Header } from '../components/Header';
-import { Section1 } from '../components/Section1';
+import LazyLoad from '../utils/LazyLoad';
 
-export function Home() {
+export default function Home() {
 	return (
 		<>
-			<Header />
-			<Section1 />
+			<LazyLoad loading={<div>Loading section1</div>} importPath="components/Section1" />
 		</>
 	);
 }

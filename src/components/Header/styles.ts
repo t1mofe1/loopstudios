@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-import { MaxWidthProp } from '../../context/MaxWidth';
-import { Container } from '../../GlobalStyles';
+import { MaxWidthMixin } from '../../GlobalStyles';
 
 export const StyledHeader = styled.header`
 	/* background: rgba(255, 0, 0, 0.2); */
@@ -15,8 +14,10 @@ export const StyledHeader = styled.header`
 	margin-top: 4rem;
 `;
 
-export const HeaderContainer = styled(Container)<MaxWidthProp>`
+export const HeaderContainer = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+
+	${MaxWidthMixin}
 `;

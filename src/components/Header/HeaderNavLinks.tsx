@@ -1,38 +1,61 @@
+import { useMatch, useResolvedPath } from 'react-router-dom';
 import { Link, LinkContainer, LinksList, StyledNav } from './HeaderNavLinks.styles';
 
-type HeaderNavLinksProps = {
-	mobile?: boolean;
-	isOpen?: boolean;
+type CustomLinkProps = {
+	mobile: boolean;
+	open: boolean;
+	to: string;
+	children: React.ReactNode;
 };
-export function HeaderNavLinks({ mobile = false, isOpen = false }: HeaderNavLinksProps) {
+function CustomLink({ mobile, open, children, to }: CustomLinkProps) {
+	const { pathname: path } = useResolvedPath(to);
+	const active = !!useMatch({ path, end: true });
+
 	return (
-		<StyledNav {...{ mobile, isOpen }}>
-			<LinksList {...{ mobile, isOpen }}>
-				<LinkContainer {...{ mobile, isOpen }}>
-					<Link {...{ mobile, isOpen }} href="/about">
-						About
-					</Link>
-				</LinkContainer>
-				<LinkContainer {...{ mobile, isOpen }}>
-					<Link {...{ mobile, isOpen }} href="/careers">
-						Careers
-					</Link>
-				</LinkContainer>
-				<LinkContainer {...{ mobile, isOpen }}>
-					<Link {...{ mobile, isOpen }} href="/events">
-						Events
-					</Link>
-				</LinkContainer>
-				<LinkContainer {...{ mobile, isOpen }}>
-					<Link {...{ mobile, isOpen }} href="/products">
-						Products
-					</Link>
-				</LinkContainer>
-				<LinkContainer {...{ mobile, isOpen }}>
-					<Link {...{ mobile, isOpen }} href="/support">
-						Support
-					</Link>
-				</LinkContainer>
+		<LinkContainer $mobile={mobile} open={open}>
+			<Link $mobile={mobile} open={open} $active={active} to={to}>
+				{children}
+			</Link>
+		</LinkContainer>
+	);
+}
+
+type HeaderNavLinksProps = {
+	mobile: boolean;
+	open: boolean;
+};
+export default function HeaderNavLinks({ mobile, open }: HeaderNavLinksProps) {
+	const links = [
+		{
+			to: '/about',
+			children: 'About',
+		},
+		{
+			to: '/careers',
+			children: 'Careers',
+		},
+		{
+			to: '/events',
+			children: 'Events',
+		},
+		{
+			to: '/products',
+			children: 'Products',
+		},
+		{
+			to: '/support',
+			children: 'Support',
+		},
+	];
+
+	return (
+		<StyledNav $mobile={mobile} open={open}>
+			<LinksList $mobile={mobile} open={open}>
+				{links.map(({ to, children }) => (
+					<CustomLink key={to} mobile={mobile} open={open} to={to}>
+						{children}
+					</CustomLink>
+				))}
 			</LinksList>
 		</StyledNav>
 	);

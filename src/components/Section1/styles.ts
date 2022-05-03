@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Section1Image from '../../assets/img/section1.jpg';
-import { Container } from '../../GlobalStyles';
+import { MaxWidthMixin } from '../../GlobalStyles';
 import { Fonts, getFont } from '../../utils/Fonts';
 
 export const SectionContainer = styled.section`
@@ -13,12 +13,14 @@ export const SectionContainer = styled.section`
 	background-position: center center;
 `;
 
-export const StyledContainer = styled(Container)`
+export const StyledContainer = styled.div`
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
 
 	height: 100%;
+
+	${MaxWidthMixin}
 `;
 
 export const SectionBox = styled.div`
@@ -30,7 +32,7 @@ export const SectionBox = styled.div`
 
 	padding: clamp(20px, 10vw / 10, 40px);
 
-	color: #fff;
+	color: ${({ theme }) => theme.white};
 
 	text-transform: uppercase;
 

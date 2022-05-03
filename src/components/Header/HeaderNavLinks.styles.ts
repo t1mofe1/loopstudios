@@ -1,43 +1,71 @@
-import styled from 'styled-components';
+import { Link as ReactLink } from 'react-router-dom';
+import styled, { css } from 'styled-components';
+import { MaxWidthMixin } from '../../GlobalStyles';
 import { Fonts, getFont } from '../../utils/Fonts';
 
 type MobileProp = {
-	mobile: boolean;
-	isOpen: boolean;
+	$mobile: boolean;
+	open: boolean;
 };
+type ActiveProp = {
+	$active: boolean;
+};
+type ActiveMobileProp = ActiveProp & MobileProp;
 
 export const StyledNav = styled.nav<MobileProp>`
-	${({ mobile, isOpen }) =>
-		mobile &&
-		`
-		position: fixed;
-		top: 0;
-		left: 0;
+	${({ $mobile, open, theme }) =>
+		$mobile &&
+		css`
+			position: fixed;
+			top: 0;
+			left: 0;
 
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: flex-start;
-	
-		height: 100vh;
-		width: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: flex-start;
 
-		transition: opacity 0.3s;
+			height: 100vh;
+			width: 100%;
 
-		background: black;
+			transition: opacity 0.3s;
 
-		opacity: ${isOpen ? 1 : 0};
-		${isOpen || 'pointer-events: none'};
-	`}
+			background: ${theme.black};
+
+			opacity: ${open ? 1 : 0};
+
+			${!open &&
+			css`
+				pointer-events: none;
+			`};
+		`}
 `;
 
 export const LinksList = styled.ul<MobileProp>`
 	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	${({ mobile }) => mobile && 'flex-direction: column;'}
+	align-items: flex-start;
+	justify-content: center;
+	${({ $mobile }) =>
+		$mobile &&
+		css`
+			flex-direction: column;
+		`}
 
-	gap: ${({ mobile }) => (mobile ? 1.5 : 1)}rem;
+	${({ $mobile }) =>
+		$mobile &&
+		css`
+			${MaxWidthMixin}
+			height: 100vh;
+		`}
+
+	${({ $mobile }) =>
+		$mobile
+			? css`
+					gap: 1.5rem;
+			  `
+			: css`
+					gap: 1rem;
+			  `}
 `;
 
 export const LinkContainer = styled.li<MobileProp>`
@@ -47,29 +75,53 @@ export const LinkContainer = styled.li<MobileProp>`
 
 	list-style: none;
 
-	${({ mobile, isOpen }) =>
-		mobile &&
-		`
-		transition: transform 1s;
-
-		transform: translateY(${isOpen ? 0 : -100}%);
-	`}
+	${({ $mobile, open }) =>
+		$mobile &&
+		css`
+			transition: transform 0.4s ease-in-out;
+			transform: translateX(${open ? 0 : -150}%);
+		`}
 `;
 
-export const Link = styled.a<MobileProp>`
-	${({ mobile }) => getFont(mobile ? Fonts.JosefinSans : Fonts.Alata)}
-	font-size: ${({ mobile }) => (mobile ? 24 : 15)}px;
-	${({ mobile }) => mobile && 'font-weight: 300;'}
+export const Link = styled(ReactLink)<ActiveMobileProp>`
+	${({ $mobile }) => getFont($mobile ? Fonts.JosefinSans : Fonts.Alata)}
+	${({ $mobile }) =>
+		$mobile
+			? css`
+					font-size: 24px;
+			  `
+			: css`
+					font-size: 15px;
+			  `}
+	${({ $mobile }) =>
+		$mobile &&
+		css`
+			font-weight: 300;
+		`}
 	line-height: 25px;
 
 	margin: 0.25rem;
 	padding: 0.25rem;
 
-	${({ mobile }) => mobile && `text-transform: uppercase;`}
+	${({ $mobile }) =>
+		$mobile &&
+		css`
+			text-transform: uppercase;
+		`}
 	text-decoration: none;
-	text-align: center;
+	${({ $mobile }) =>
+		!$mobile &&
+		css`
+			text-align: center;
+		`}
+
+	${({ $active }) =>
+		$active &&
+		css`
+			border: 0.25rem solid ${({ theme }) => theme.white};
+		`}
 
 	flex: 1;
 
-	color: #ffffff;
+	color: ${({ theme }) => theme.white};
 `;

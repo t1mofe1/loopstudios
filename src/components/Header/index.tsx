@@ -1,15 +1,11 @@
-import { useContext } from 'react';
-import { MaxWidthContext } from '../../context/MaxWidth';
-import { HeaderLogo } from './HeaderLogo';
-import { HeaderMenu } from './HeaderMenu';
+import HeaderLogo from './HeaderLogo';
+import HeaderMenu from './HeaderMenu';
 import { HeaderContainer, StyledHeader } from './styles';
 
-export function Header() {
-	const maxWidth = useContext(MaxWidthContext);
-
+export default function Header() {
 	return (
 		<StyledHeader>
-			<HeaderContainer maxWidth={maxWidth}>
+			<HeaderContainer>
 				<HeaderLogo />
 				<HeaderMenu />
 			</HeaderContainer>

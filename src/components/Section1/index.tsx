@@ -1,13 +1,9 @@
-import { useContext } from 'react';
-import { MaxWidthContext } from '../../context/MaxWidth';
 import { SectionBox, SectionContainer, StyledContainer } from './styles';
 
-export function Section1() {
-	const maxWidth = useContext(MaxWidthContext);
-
+export default function Section1() {
 	return (
 		<SectionContainer>
-			<StyledContainer maxWidth={maxWidth}>
+			<StyledContainer>
 				<SectionBox>Immersive experiences that deliver</SectionBox>
 			</StyledContainer>
 		</SectionContainer>
